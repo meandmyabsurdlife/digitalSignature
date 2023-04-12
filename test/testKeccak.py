@@ -2,6 +2,7 @@ import os, sys
 
 p = os.path.abspath('.')
 sys.path.insert(1, p)
+print(sys.path)
 
 from keccak import *
 from fileOperation import *
@@ -22,6 +23,6 @@ def testKeccak_binary(filename):
     print(f'Array hash SHA-3 dari file ({filename}) :')
     print(list(hash_string))
 
-testKeccak_text('D:\\SEM6\\Kriptografi dan Koding\\Code\\Tucil 3\\test\\test.txt')
+testKeccak_text('test\\test.txt')
 print()
-testKeccak_binary("D:\Picture\gojo.jpg")
+testKeccak_binary("test\\\gojo.jpg")

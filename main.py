@@ -2,31 +2,37 @@ from tkinter import filedialog
 from fileOperation import *
 
 # SAVE KEY
-def save_public_key(e, n):
-    file_name = filedialog.asksaveasfile(initialdir = '/',
-                                          title = 'Save a File',
-                                          filetypes = (('pub',
-                                                        '*.pub*'))).name
+def save_key(e, n):
+    file_name = filedialog.asksaveasfile(defaultextension=".pub",
+                                         filetypes=[('Public Key', '*.pub'),
+                                                    ('Private Key', '*.pri')]).name
     try:
         f = open(file_name, 'w')
         f.write('(' + str(e) + ',' + str(n) + ')')
         f.close()
     except:
         raise(Exception('File not found and can not be opened:', file_name))
-    
-def save_private_key(d, n):
-    file_name = filedialog.asksaveasfile(initialdir = '/',
-                                          title = 'Save a File',
-                                          filetypes = (('pri',
-                                                        '*.pri*'))).name
-    try:
-        f = open(file_name, 'w')
-        f.write('(' + str(d) + ',' + str(n) + ')')
-        f.close()
-    except:
-        raise(Exception('File not found and can not be opened:', file_name))
 
 # LOAD KEY
+def load_key():
+    filename = filedialog.askopenfilename(defaultextension=".pub",
+                                         filetypes=[('Public Key', '*.pub'),
+                                                    ('Private Key', '*.pri')])
+      
+    # Change label contents
+    content = readFile(filename)
+
+    content = content.strip('()').split(',')
+    
+    key = int(content[0])
+    #print(key)
+    #print(type(key))
+    n = int(content[1])
+    return [key, n]
+
+# WRITE SIGNATURE
+def write_Text_signature(filename, signature):
+    writeFile(filename, signature)
 
 # WRITE SIGNATURE
 def write_Text_signature(filename, signature):
