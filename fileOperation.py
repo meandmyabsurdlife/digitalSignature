@@ -7,7 +7,7 @@ def readFile(filename):
         return file_content
     except:
         raise(Exception('File not found and can not be opened:', filename))
-
+'''
 def writeFile(filename, text):
     try:
         f = open(filename, "w")
@@ -15,6 +15,7 @@ def writeFile(filename, text):
         f.close()
     except:
         raise(Exception('File not found and can not be opened:', filename))
+'''
 
 def readBinaryFile(filename):
     try:

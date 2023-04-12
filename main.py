@@ -30,13 +30,22 @@ def load_key():
     n = int(content[1])
     return [key, n]
 
-# WRITE SIGNATURE
-def write_Text_signature(filename, signature):
-    writeFile(filename, signature)
+# WRITE SIGNATURE IN *.TXT
+def addKeyInNewLine(filename, text):
+    try:
+        f_in = open(filename, 'r')
+        lines = f_in.readlines()
+        # Add a new line
+        lines.append('\n')
+        # Append the new paragraph as a new string to the end of the list
+        lines.append('<ds>\n' + text + '\n</ds>')
 
-# WRITE SIGNATURE
-def write_Text_signature(filename, signature):
-    writeFile(filename, signature)
+        # Open the output file for writing
+        f_out =  open(filename, 'w')
+        # Write the modified lines to the output file
+        f_out.writelines(lines)
+    except:
+        raise(Exception(f'Failed to add digital signature in {filename}'))
 
 
 
