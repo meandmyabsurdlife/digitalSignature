@@ -1,8 +1,24 @@
+import tkinter as tk
 from tkinter import *
+from tkinter import ttk
 from tkinter import filedialog
 from tkinter.messagebox import showinfo
 from fileOperation import *
-#from rsa import *
+from rsa import *
+
+def generate_key():
+    p = entry_p.get()
+    q = entry_q.get()
+    e = entry_keypub.get()
+    if (isPrima(p)==True and isPrima(q)==True):
+        n = calculate_n(p,q)
+        totion_n = calculate_totion_n(p, q)
+        array_e = generatePossiblePublicKey(totion_n)
+
+        while (e not in (array_e)):
+            showinfo("Warning", "Nilai e tidak relatif prima dengan totion n.")
+            entry_keypub.delete('1.0', END)
+    #masukan ke texte entry kunci rahasia, kunci publik -> save
 
 # SAVE KEY
 def save_key(e, n):
@@ -64,10 +80,6 @@ def writeSignature(text):
         raise(Exception('File not found and can not be opened:', file_name))
 
 
-'''
-import tkinter as tk
-from tkinter import ttk
-
 # Create the main window
 root = tk.Tk()
 root.title("Digital Signature")
@@ -76,8 +88,11 @@ root.geometry("700x400")
 # Create a notebook widget with 2 tabs
 notebook = ttk.Notebook(root)
 
+# Create the first tab
 ## Create the first tab
 tab1 = ttk.Frame(notebook)
+notebook.add(tab1, text="Tab 1")
+tk.Label(tab1, text="This is Tab 1").pack(padx=20, pady=20)
 notebook.add(tab1, text="Get Private & Public Key")
 title1 = tk.Label(tab1, text="Generate Key", font= ('arial', 14))
 title1.grid(row=0, column=0, padx=10, pady=10)
@@ -102,17 +117,21 @@ btn_generate = tk.Button(tab1, height=1, width=15, text="Generate Your Key!",  f
 
 #button_generate = tk.Button(tab1, text = )
 
+# Create the second tab
 ## Create the second tab 
 tab2 = ttk.Frame(notebook)
+notebook.add(tab2, text="Tab 2")
+tk.Label(tab2, text="This is Tab 2").pack(padx=20, pady=20)
 notebook.add(tab2, text="Signing")
 title2 = tk.Label(tab2, text="Signing", font=('arial', 15))#.pack(padx=20, pady=20)
 
+# Create the third tab
 ## Create the third tab
 tab3 = ttk.Frame(notebook)
+notebook.add(tab3, text="Tab 3")
+tk.Label(tab3, text="This is Tab 3").pack(padx=20, pady=20)
 notebook.add(tab3, text="Verifying")
 title3 = tk.Label(tab3, text="Verifying", font=('arial', 15))#.pack(padx=20, pady=20)
 
 # Pack the notebook widget and start the main loop
 notebook.pack(expand=True, fill="both")
-root.mainloop()
-'''
