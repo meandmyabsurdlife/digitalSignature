@@ -1,3 +1,5 @@
+import os
+
 # Operasi write dan read file
 def readFile(filename):
     try:
@@ -7,7 +9,7 @@ def readFile(filename):
         return file_content
     except:
         raise(Exception('File not found and can not be opened:', filename))
-'''
+
 def writeFile(filename, text):
     try:
         f = open(filename, "w")
@@ -15,7 +17,7 @@ def writeFile(filename, text):
         f.close()
     except:
         raise(Exception('File not found and can not be opened:', filename))
-'''
+
 
 def readBinaryFile(filename):
     try:
@@ -34,3 +36,8 @@ def writeBinaryFile(filename, text):
         f.close()
     except:
         raise(Exception('File not found and can not be opened:', filename))
+    
+def getNameFromFilepath(filepath):
+    filename = os.path.basename(filepath)
+    name, extension = os.path.splitext(filename)
+    return(name)

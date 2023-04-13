@@ -90,7 +90,7 @@ def crypt(decimal: int, key: int, n: int) -> int: # int, int, int -> int
     big_key = int_to_BigNumber(key)
     big_n = int_to_BigNumber(n)
 
-    cipher_text = (big_decimal**big_key)%big_n
+    cipher_text = ((big_decimal**big_key)%big_n)
     return cipher_text
 
 # DATA PROCESSING FUNCTION

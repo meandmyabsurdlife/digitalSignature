@@ -25,15 +25,13 @@ def load_key():
     content = content.strip('()').split(',')
     
     key = int(content[0])
-    #print(key)
-    #print(type(key))
     n = int(content[1])
     return [key, n]
 
-# WRITE SIGNATURE IN *.TXT
-def addKeyInNewLine(filename, text):
+# ADD SIGNATURE IN *.TXT
+def addKeyInNewLine(filePath, text):
     try:
-        f_in = open(filename, 'r')
+        f_in = open(filePath, 'r')
         lines = f_in.readlines()
         # Add a new line
         lines.append('\n')
@@ -41,14 +39,29 @@ def addKeyInNewLine(filename, text):
         lines.append('<ds>\n' + text + '\n</ds>')
 
         # Open the output file for writing
-        f_out =  open(filename, 'w')
+        f_out =  open(filePath, 'w')
         # Write the modified lines to the output file
         f_out.writelines(lines)
     except:
-        raise(Exception(f'Failed to add digital signature in {filename}'))
+        raise(Exception(f'Failed to add digital signature in {filePath}'))
+
+# WRITE SIGNATURE IN OTHER FILE (FOR BIN FILE)
+def writeSignature(text):
+    file_name = filedialog.asksaveasfile(initialdir = "/",
+                                          title = "Save a File",
+                                          filetypes = (("Text files",
+                                                        "*.txt*"),
+                                                       ("all files",
+                                                        "*.*"))).name
+    try:
+        f = open(file_name, 'w')
+        f.write('<ds>\n' + text + '\n</ds>')
+        f.close()
+    except:
+        raise(Exception('File not found and can not be opened:', file_name))
 
 
-
+'''
 import tkinter as tk
 from tkinter import ttk
 
@@ -77,3 +90,4 @@ tk.Label(tab3, text="This is Tab 3").pack(padx=20, pady=20)
 # Pack the notebook widget and start the main loop
 notebook.pack(expand=True, fill="both")
 root.mainloop()
+'''
