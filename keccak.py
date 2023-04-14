@@ -5,8 +5,8 @@ from fileOperation import readBinaryFile
 def hashKeccak_Text(filename) -> bytes: # str -> bytes
     # read file
     message = readFile(filename)
-    return(hashKeccak_message(message))
 
+    return(hashKeccak_message(message))
 
 def hashKeccak_message(message):
     # change str to bytes
@@ -15,7 +15,6 @@ def hashKeccak_message(message):
 
     # hash the message bytes
     sha3_256.update(message_bytes)
-
     digest_bytes = sha3_256.digest()
 
     return digest_bytes
@@ -27,7 +26,6 @@ def hashKeccak_Binary(filename) -> bytes:
 
     # hash the message bytes
     sha3_256.update(bin)
-
     digest_bytes = sha3_256.digest()
-
+    
     return digest_bytes
