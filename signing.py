@@ -4,6 +4,7 @@
 from rsa import *
 from keccak import *
 from fileOperation import *
+from tkinter.messagebox import showinfo
 
 
 def sign_Text(filePath: str, d: int, n: int):
@@ -40,7 +41,6 @@ def createSignature_Text(filePath: str, d: int, n: int):
         cipher_text.append(cipher)
     return cipher_text # list[int]
 
-
 def createSignature_BinFile(filePath: str, d: int, n: int):
     message_digest = hashKeccak_Binary(filePath)
     
@@ -57,14 +57,12 @@ def createSignature_BinFile(filePath: str, d: int, n: int):
     return cipher_text # list[int]
 
 def addKeyInNewLine(filename, text):
-    if (findSignature(filename) == None):
+    if(findSignature(filename) == None):
         try:
             f_in = open(filename, 'r')
             lines = f_in.readlines()
-
             # Append the new paragrap at the end of the list
             lines.append('<ds>' + text + '</ds>')
-
             # Open the output file for writing
             f_out =  open(filename, 'w')
             # Write the modified lines to the output file
@@ -72,10 +70,8 @@ def addKeyInNewLine(filename, text):
 
         except:
             raise(Exception(f'Failed to add digital signature in {filename}'))
-        
     else:
-        print(f'File {filename} has already had a signature')
-
+        raise(Exception(f'File {filename} sudah ditandatangani'))
 
 def findSignature(filePath):
     signature = ''

@@ -1,13 +1,8 @@
 import gmpy2
 import math
 import sympy
-from Crypto.Util import number
 
 # https://rsa-calculator.netlify.app/
-
-# d : private key
-# e : public key
-
 
 # RSA KEY GENERATOR
 def int_to_BigNumber(number: int): # -> mpz
@@ -43,17 +38,11 @@ def isPrimaRelative(a: int, b) -> bool: # -> boolean
 
 def calculate_n(p, q): # -> int
     # Menghitung nilai n = p * q
-    if (isPrima(p) and isPrima(q)): # taruh di UI ?
-        return p*q
-    else:
-        print(f'{p} atau {q} bukan prima')
+    return p*q
 
 def calculate_totion_n(p, q): # -> int
     # Menghitung nilai totion n = (p - 1)*(q - 1)
-    if (isPrima(p) and isPrima(q)): # taruh di UI ?
-        return (p-1)*(q-1)
-    else:
-        print(f'{p} atau {q} bukan prima')
+    return (p-1)*(q-1)
 
 def generatePossiblePublicKey(totion_n: int) -> list[int]:# -> array of int
     # generate nilai e yang relatif prima terhadap totion n
@@ -70,16 +59,18 @@ def generatePrivateKey(e: int, totion_n: int) -> int: # -> int
     # dengan rumus d = (1 + (k * (totion n)))/e
     # dengan k : {1,2,...}
     # hasil d adalah int
-
+    '''
     k = 1
     loop = True
     while (loop == True):
         phi = 1 + (k * totion_n)
-        if ((phi % e) == 0):  # e faktor dari (1 + (k * (totion n)))
+        if ((phi % e) == 0 and (phi/e != e)):  # e faktor dari (1 + (k * (totion n)))
             d = phi/e
             loop = False
         else: 
             k = k + 1
+    '''
+    d = (pow(e, -1, totion_n))
 
     return int(d)
 
@@ -114,65 +105,3 @@ def array_to_string(array) -> str: #  array
         string += str(array[i]) 
 
     return string
-
-'''
-def group_in_four(text: str) -> list[int]: # str -> array of int
-    # '12345678' -> [[1234], [5678]]
-    group_four_array = []
-    for i in range(0, len(text), 4):
-        group_for_string = "".join(text[i:i + 4])
-        group_four_array.append(int(group_for_string))
-
-    return group_four_array
-
-def block_in_four(text: str) -> list[int]: # str -> array of int
-    # 'abcdefgh' -> [['ab']['cd']['ef']['gh']]
-    group_four_array = []
-    for i in range(0, len(text), 2):
-        two_char = "".join(text[i:i + 2])
-        group_four_array.append(two_char)
-
-    for i in range(len(group_four_array)):
-        for j in range(len(i)):
-            pass
-
-    return group_four_array
-
-'''
-
-'''
-def decrypt(decimal, d, n): # int, int, int -> hex
-    # change int to bignumber
-    big_decimal = int_to_BigNumber(decimal)
-    big_d = int_to_BigNumber(d)
-    big_n = int_to_BigNumber(n)
-
-    message = (big_decimal**big_d)%big_n
-    return message
-'''
-# encrypt, decrypt algoritmanya samaa, cuman parameter yg beda
-# yg satu e, yg satu d
-
-'''
-def encrypt(hexadecimal, e, n): # array of hex, int, int -> hex
-    decimal = hex_to_int(hexadecimal)
-
-    # change int to bignumber
-    big_decimal = int_to_BigNumber(decimal)
-    big_e = int_to_BigNumber(e)
-    big_n = int_to_BigNumber(n)
-
-    cipher_text = (big_decimal**big_e)%big_n
-    return cipher_text
-
-def decrypt(hexadecimal, d, n): # hex, int, int -> hex
-    decimal = hex_to_int(hexadecimal)
-
-    # change int to bignumber
-    big_decimal = int_to_BigNumber(decimal)
-    big_d = int_to_BigNumber(d)
-    big_n = int_to_BigNumber(n)
-
-    message = (big_decimal**big_d)%big_n
-    return message
-'''

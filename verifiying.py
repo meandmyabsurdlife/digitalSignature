@@ -43,18 +43,25 @@ def verify_text(filePath: str, public_key: int, n_private: int, n_public: int) -
     # MD' : message_digest
     # MD : decrypt_signature
     message = readMessage_text(filePath)
-    signature = findSignature(filePath)
+    #print(f'Message : {message}')
+    #print(len(message))
 
-    if (isValidPrivateandPublic(n_private,n_public) == True):
+    if (isValidPrivateandPublic(n_private,n_public)):
         # Calculate MD
         message_digest = list(hashKeccak_message(message))
+        #print(f'Message digest : {message_digest}')
+        #print(len(message_digest))
 
         # Calculate MD'
         ds = findSignature(filePath)
         ds = signature_to_listofInt(ds)
+        #print(f'Signature sebelum decrypt : {ds}')
+        #print(len(ds))
         # DECRYPT DIGITAL SIGNATURE
         for i in range(len(ds)):
             ds[i] = crypt(ds[i], public_key, n_public)
+        #print(f'Signature sesudah decrypt : {ds}')
+        #print(len(ds))
 
         return message_digest == ds
     else:
