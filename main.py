@@ -51,21 +51,22 @@ def generate_pub_key():
     p = int(p)
     q = int(q)
     
-    if (isPrima(p) and isPrima(q)):
-        # tambahin apakah p = q
-        # display n
-        n = calculate_n(p,q)
-        display_n.config(text=n)
+    if (p!=q):
+        if (isPrima(p) and isPrima(q)):
+            # tambahin apakah p = q
+            # display n
+            n = calculate_n(p,q)
+            display_n.config(text=n)
 
-        totion_n = calculate_totion_n(p, q)
+            totion_n = calculate_totion_n(p, q)
 
-        array_e = generatePossiblePublicKey(totion_n)
-        entry_e_array.insert(END, str(array_e))
-    elif (p == 0 or q == 0):
-        showinfo("Warning", "p dan q tidak boleh 0")
-    elif ((isPrima(p) == False) or (isPrima(q) == False)):
-        showinfo("Warning", "p atau q bukan prima")
-    elif (p == q):
+            array_e = generatePossiblePublicKey(totion_n)
+            entry_e_array.insert(END, str(array_e))
+        elif (p == 0 or q == 0):
+            showinfo("Warning", "p atau q tidak boleh 0")
+        elif ((isPrima(p) == False) or (isPrima(q) == False)):
+            showinfo("Warning", "p atau q bukan prima")
+    else:
         showinfo("Warning", "p tidak boleh sama dengan q")
     
 def generate_pri_key():
@@ -206,16 +207,16 @@ notebook.add(tab1, text="Get Private & Public Key")
 title1 = tk.Label(tab1, text="Generate Key", font= ('arial', 12))
 title1.grid(row=0, column=0, padx=10, pady=10)
 # entry p
-label_p = tk.Label(tab1, text = 'Enter p:', font = ('Inter ', 10))#.pack(padx=20, pady=5)
+label_p = tk.Label(tab1, text = 'Enter p:', font = ('Inter ', 10))
 label_p.grid(row=1, column=0, padx=10, pady=5, stick='e')
 prime_p = IntVar()
-entry_p = tk.Entry(tab1, textvariable=prime_p,width = 40)#.pack(ipadx=20, ipady=10)
+entry_p = tk.Entry(tab1, textvariable=prime_p,width = 40)
 entry_p.grid(row=1, column=1, stick='w', padx=20, pady=5)
 # entry q
-label_q = tk.Label(tab1, text = 'Enter q :', font = ('Inter ', 10))#.pack(padx=20, pady=5)
+label_q = tk.Label(tab1, text = 'Enter q :', font = ('Inter ', 10))
 label_q.grid(row=2, column=0, padx=10, pady=5, stick='e')
 prime_q = IntVar()
-entry_q = tk.Entry(tab1, textvariable=prime_q, width = 40)#.pack(ipadx=20, ipady=10)
+entry_q = tk.Entry(tab1, textvariable=prime_q, width = 40)
 entry_q.grid(row=2, column=1, stick='w', padx=20, pady=5)
 # display n
 label_n = tk.Label(tab1, text = 'n :', font = ('Inter ', 10))
@@ -224,14 +225,14 @@ display_n = tk.Label(tab1, text="")
 display_n.grid(row=3, column=1, stick='w', padx=20, pady=5)
 # display possible e array
 label_e_array = tk.Label(tab1, text = 'Possible public key (e) :', font = ('Inter ', 10))
-label_e_array.grid(row=4, column=0, stick='e', padx=20, pady=5)
+label_e_array.grid(row=4, column=0, stick='e', padx=10, pady=5)
 entry_e_array = tk.Entry(tab1, text="", width = 40)
 entry_e_array.grid(row=4, column=1, stick='w', padx=20, pady=5)
 # entry e (public key)
-label_keypub = tk.Label(tab1, text = 'Enter public key (e) :', font = ('Inter ', 10))#.pack(padx=20, pady=5)
+label_keypub = tk.Label(tab1, text = 'Enter public key (e) :', font = ('Inter ', 10))
 label_keypub.grid(row=5, column=0,padx=10, pady=5, stick='e')
 key_public = IntVar()
-entry_keypub = tk.Entry(tab1, textvariable=key_public, width = 40)#.pack(ipadx=20, ipady=10)
+entry_keypub = tk.Entry(tab1, textvariable=key_public, width = 40)
 entry_keypub.grid(row=5, column=1, stick='w', padx=20, pady=5)
 # display d (private key)
 label_keypri = tk.Label(tab1, text = 'Private key (d) :', font = ('Inter ', 10))
@@ -268,13 +269,13 @@ entry_signing_file.grid(row=1, column=1, stick='w', padx=20, pady=5)
 # entry private key file
 label_signing_keypri_file = tk.Label(tab2, text = 'Private key file  :', font = ('Inter ', 10))
 label_signing_keypri_file.grid(row=2, column=0, padx=10, pady=5, stick='e')
-entry_signing_keypri_file = tk.Entry(tab2, width = 30)#.pack(ipadx=20, ipady=10)
+entry_signing_keypri_file = tk.Entry(tab2, width = 30)
 entry_signing_keypri_file.grid(row=2, column=1, stick='w', padx=20, pady=5)
 # browse file button
-btn_signing_browse_file = tk.Button(tab2, height=1, width=15, text="Browse file",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=browse_signing_file)#.pack(padx=15, pady=5)
+btn_signing_browse_file = tk.Button(tab2, height=1, width=15, text="Browse file",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=browse_signing_file)
 btn_signing_browse_file.grid(row=1, column=2, pady=2)
 # browse private key button
-btn_browse_pri_key = tk.Button(tab2, height=1, width=15, text="Browse private key",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=browse_signing_keypri_file)#.pack(padx=15, pady=5)
+btn_browse_pri_key = tk.Button(tab2, height=1, width=15, text="Browse private key",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=browse_signing_keypri_file)
 btn_browse_pri_key.grid(row=2, column=2, pady=2)
 # radio button
 sign_mode = tk.StringVar()
@@ -284,7 +285,7 @@ radio_button_textFile.grid(row=3, column=0, stick='w', padx=20, pady=5)
 radio_button_binFile = tk.Radiobutton(tab2, text="other file", variable=sign_mode, value="other file")
 radio_button_binFile.grid(row=3, column=1, stick='w', padx=20, pady=5)
 # sign button
-btn_signing = tk.Button(tab2, height=1, width=15, text="Sign",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=sign)#.pack(padx=15, pady=5)
+btn_signing = tk.Button(tab2, height=1, width=15, text="Sign",  font = ('arial ', 10), fg="black", bg="#D3C3B1", command=sign)
 btn_signing.grid(row=4, column=1, pady=2)
 
 
